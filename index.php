@@ -160,7 +160,35 @@ $app->post("/admin/user/:iduser", function($iduser) {
 
 });
 
+$app->get("/admin/forgot", function(){
 
+	$page = new PageAdmin([
+		"header"=>false,
+		"footer"=>false
+	]);
+
+	$page->setTpl("forgot");
+
+});
+
+$app->post("/admin/forgot", function(){
+
+	$user = User::getForgot($_POST["email"]);
+
+	header("Location: /admin/forgot/sent");
+
+});
+
+$app->get("/admin/forgot/sent", function(){
+
+	$page = new PageAdmin([
+		"header"=>false,
+		"footer"=>false
+	]);
+
+	$page->setTpl("forgot-send");
+
+});
 
 
 $app->run();
